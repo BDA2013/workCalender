@@ -1,6 +1,15 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
+var currentTimeEl = document.getElementById('currentDay');
+var currentDate = dayjs();
+var currentTime = dayjs();
+
+setInterval(function (){
+  currentTimeEl.textContent = currentDate.format('MMM D, YYYY') + " " + (new Date()).toLocaleTimeString();
+}, 1000);
+
+
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
