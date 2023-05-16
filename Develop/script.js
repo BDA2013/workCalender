@@ -5,11 +5,6 @@ var currentTimeEl = document.getElementById('currentDay');
 var currentDate = dayjs();
 var currentTime = dayjs();
 
-setInterval(function (){
-  currentTimeEl.textContent = currentDate.format('MMM D, YYYY') + " " + (new Date()).toLocaleTimeString();
-}, 1000);
-
-
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
@@ -29,4 +24,7 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
+  setInterval(function (){
+    currentTimeEl.textContent = currentDate.format('MMM D, YYYY') + " " + (new Date()).toLocaleTimeString();
+  }, 1000);
 });
