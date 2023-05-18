@@ -2,16 +2,28 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 var currentTimeEl = document.getElementById('currentDay');
+var saveButtonEl = document.getElementsByClassName('saveBtn');
 var currentDate = dayjs();
 var currentTime = dayjs();
 
 $(function () {
-  // TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
+  //Helped from Tutor
+  document.addEventListener("click", function(event) {
+    event.preventDefault();
+    //console.log(this);
+    if (event.target.className.includes("saveBtn")) {
+      //console.log(event.target.parentElement.id);
+      var textValue = event.target.previousElementSibling.value;
+      var id = event.target.parentElement.id;
+      localStorage.setItem(id, textValue);
+    } else if (event.target.className.includes("fas fa-save")) {
+      //console.log(event.target.parentElement);
+      var textValue = event.target.parentElement.previousElementSibling.value;
+      var id = event.target.parentElement.parentElement.id;
+      localStorage.setItem(id, textValue);
+    }
+  })
+    //console.log(saveButtonEl);
   //
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
