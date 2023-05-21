@@ -1,6 +1,3 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
 var currentTimeEl = document.getElementById('currentDay');
 var saveButtonEl = document.getElementsByClassName('saveBtn');
 var timeBlockEl = document.getElementsByClassName('time-block');
@@ -33,19 +30,13 @@ $(function () {
         loadScheduler();
       }
     })
-  //
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
   // attribute of each time-block be used to conditionally add or remove the
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
-  /* for(var i = 0; i < timeBlockEl.length; i++) {
-    if(hourEl.textContent < currentHour) {
-      divTextEl[i].setAttribute('class', 'past');
-    }
-  } */
+  
 
-  //
   function loadScheduler() {
     for (i = 0; i < divTextEl.length; i++) {
       console.log(divTextEl[i].parentElement.id);
