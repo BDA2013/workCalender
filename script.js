@@ -53,7 +53,6 @@ setInterval(function(){
       }
     };
   }
-  
 })
   
   function loadScheduler() {
