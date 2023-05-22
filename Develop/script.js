@@ -1,7 +1,7 @@
 var currentTimeEl = document.getElementById('currentDay');
 var divTextEl = document.getElementsByClassName('col-8 col-md-10 description');
 var currentDate = dayjs();
-var divTimeBlock = document.getElementsByClassName('time-block');
+var divTimeBlock = document.getElementsByClassName('row time-block ');
 //Founded from Google, deletes the space
 var currentHour = new Date().toLocaleTimeString([], {
   hour12: false,
@@ -11,19 +11,15 @@ var currentHour = new Date().toLocaleTimeString([], {
 
 
 $(function () {
-  //console.log(divTextEl.length)
     //Helped from Tutor
     document.addEventListener("click", function(event) {
       event.preventDefault();
-      //console.log(this);
       if (event.target.className.includes("saveBtn")) {
-        //console.log(event.target.parentElement.id);
         var textValue = event.target.previousElementSibling.value;
         var id = event.target.parentElement.id;
         localStorage.setItem(id, textValue);
         loadScheduler();
       } else if (event.target.className.includes("fas fa-save")) {
-        //console.log(event.target.parentElement);
         var textValue = event.target.parentElement.previousElementSibling.value;
         var id = event.target.parentElement.parentElement.id;
         console.log(id);
@@ -62,8 +58,6 @@ $(function () {
   }
   function loadScheduler() {
     for (i = 0; i < divTextEl.length; i++) {
-      //console.log(divHour[i].textContent);
-      //console.log(divTextEl[i].parentElement.id);
       var key = divTextEl[i].parentElement.id;
       divTextEl[i].textContent = localStorage.getItem(key); 
     }
