@@ -53,7 +53,7 @@ setInterval(function(){
       }
     };
   }
-})
+}, 1000);
   
   function loadScheduler() {
     for (i = 0; i < divTextEl.length; i++) {
