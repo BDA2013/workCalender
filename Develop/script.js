@@ -2,7 +2,7 @@ var currentTimeEl = document.getElementById('currentDay');
 var divTextEl = document.getElementsByClassName('col-8 col-md-10 description');
 var currentDate = dayjs();
 var divTimeBlock = document.getElementsByClassName('row time-block ');
-//Founded from Google, deletes the space
+//Founded from Google, alternative to using Day.js
 var currentHour = new Date().toLocaleTimeString([], {
   hour12: false,
   hour: '2-digit'});
@@ -41,7 +41,7 @@ $(function () {
       } else if (divTimeBlock[i].className.match('future')) {
         divTimeBlock[i].classList.replace('future','past');
       }
-    } else if (hour = intCurrentHour) {
+    } else if (hour == intCurrentHour) {
       if (divTimeBlock[i].className.match('past')) {
         divTimeBlock[i].classList.replace('past','present');
       } else if (divTimeBlock[i].className.match('future')) {
@@ -64,6 +64,7 @@ $(function () {
   }
   
   setInterval(function (){
+    //Recieved from asking a classmate
     currentTimeEl.textContent = currentDate.format('MMM D, YYYY') + " " + (new Date()).toLocaleTimeString();
   }, 1000);
 
