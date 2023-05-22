@@ -32,8 +32,6 @@ $(function () {
   for (i = 0; i < divTimeBlock.length; i++) {
     var hour = parseInt(divTimeBlock[i].id.replace('hour-',''));
     var intCurrentHour = parseInt(currentHour);
-    console.log(hour);
-    console.log(intCurrentHour);
 
     if (hour < intCurrentHour) {
       if (divTimeBlock[i].className.match('present')) {
