@@ -1,23 +1,71 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
+var currentTimeEl = document.getElementById('currentDay');
+var divTextEl = document.getElementsByClassName('col-8 col-md-10 description');
+var currentDate = dayjs();
+var divTimeBlock = document.getElementsByClassName('row time-block ');
+//Founded from Google, deletes the space
+var currentHour = new Date().toLocaleTimeString([], {
+  hour12: false,
+  hour: '2-digit'});
+
+
+
+
 $(function () {
-  // TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
-  //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
-  // TODO: Add code to display the current date in the header of the page.
+    //Helped from Tutor
+    document.addEventListener("click", function(event) {
+      event.preventDefault();
+      if (event.target.className.includes("saveBtn")) {
+        var textValue = event.target.previousElementSibling.value;
+        var id = event.target.parentElement.id;
+        localStorage.setItem(id, textValue);
+        loadScheduler();
+      } else if (event.target.className.includes("fas fa-save")) {
+        var textValue = event.target.parentElement.previousElementSibling.value;
+        var id = event.target.parentElement.parentElement.id;
+        console.log(id);
+        localStorage.setItem(id, textValue);
+        loadScheduler();
+      }
+    })
+
+
+  for (i = 0; i < divTimeBlock.length; i++) {
+    var hour = parseInt(divTimeBlock[i].id.replace('hour-',''));
+    var intCurrentHour = parseInt(currentHour);
+    console.log(hour);
+    console.log(intCurrentHour);
+
+    if (hour < intCurrentHour) {
+      if (divTimeBlock[i].className.match('present')) {
+        divTimeBlock[i].classList.replace('present','past');
+      } else if (divTimeBlock[i].className.match('future')) {
+        divTimeBlock[i].classList.replace('future','past');
+      }
+    } else if (hour = intCurrentHour) {
+      if (divTimeBlock[i].className.match('past')) {
+        divTimeBlock[i].classList.replace('past','present');
+      } else if (divTimeBlock[i].className.match('future')) {
+        divTimeBlock[i].classList.replace('future','present');
+      }
+    } else if (hour > intCurrentHour) {
+      if (divTimeBlock[i].className.match('present')) {
+        divTimeBlock[i].classList.replace('present','future');
+      } else if (divTimeBlock[i].className.match('past')) {
+        divTimeBlock[i].classList.replace('past','future');
+      }
+    };
+  
+  }
+  function loadScheduler() {
+    for (i = 0; i < divTextEl.length; i++) {
+      var key = divTextEl[i].parentElement.id;
+      divTextEl[i].textContent = localStorage.getItem(key); 
+    }
+  }
+  
+  setInterval(function (){
+    currentTimeEl.textContent = currentDate.format('MMM D, YYYY') + " " + (new Date()).toLocaleTimeString();
+  }, 1000);
+
+  loadScheduler();
 });
