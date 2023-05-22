@@ -2,10 +2,6 @@ var currentTimeEl = document.getElementById('currentDay');
 var divTextEl = document.getElementsByClassName('col-8 col-md-10 description');
 var currentDate = dayjs();
 var divTimeBlock = document.getElementsByClassName('row time-block ');
-//Founded from Google, alternative to using Day.js
-var currentHour = new Date().toLocaleTimeString([], {
-  hour12: false,
-  hour: '2-digit'});
 
 
 
@@ -30,6 +26,10 @@ $(function () {
 
 setInterval(function(){
   for (i = 0; i < divTimeBlock.length; i++) {
+    //Founded from Google, alternative to using Day.js
+    var currentHour = new Date().toLocaleTimeString([], {
+    hour12: false,
+    hour: '2-digit'});
     var hour = parseInt(divTimeBlock[i].id.replace('hour-',''));
     var intCurrentHour = parseInt(currentHour);
 
