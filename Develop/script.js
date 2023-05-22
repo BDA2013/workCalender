@@ -1,12 +1,13 @@
 var currentTimeEl = document.getElementById('currentDay');
-var saveButtonEl = document.getElementsByClassName('saveBtn');
-var timeBlockEl = document.getElementsByClassName('time-block');
-var hourEl = document.getElementsByClassName('hour');
 var divTextEl = document.getElementsByClassName('col-8 col-md-10 description');
 var currentDate = dayjs();
-var hour = new Date().toLocaleTimeString([], {hour: '2-digit'});
+var divTimeBlock = document.getElementsByClassName('time-block');
 //Founded from Google, deletes the space
-var currentHour = hour.replace(/\s+/g, '');
+var currentHour = new Date().toLocaleTimeString([], {
+  hour12: false,
+  hour: '2-digit'});
+
+
 
 
 $(function () {
@@ -30,18 +31,41 @@ $(function () {
         loadScheduler();
       }
     })
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  
 
+
+  for (i = 0; i < divTimeBlock.length; i++) {
+    var hour = parseInt(divTimeBlock[i].id.replace('hour-',''));
+    var intCurrentHour = parseInt(currentHour);
+    console.log(hour);
+    console.log(intCurrentHour);
+
+    if (hour < intCurrentHour) {
+      if (divTimeBlock[i].className.match('present')) {
+        divTimeBlock[i].classList.replace('present','past');
+      } else if (divTimeBlock[i].className.match('future')) {
+        divTimeBlock[i].classList.replace('future','past');
+      }
+    } else if (hour = intCurrentHour) {
+      if (divTimeBlock[i].className.match('past')) {
+        divTimeBlock[i].classList.replace('past','present');
+      } else if (divTimeBlock[i].className.match('future')) {
+        divTimeBlock[i].classList.replace('future','present');
+      }
+    } else if (hour > intCurrentHour) {
+      if (divTimeBlock[i].className.match('present')) {
+        divTimeBlock[i].classList.replace('present','future');
+      } else if (divTimeBlock[i].className.match('past')) {
+        divTimeBlock[i].classList.replace('past','future');
+      }
+    };
+  
+  }
   function loadScheduler() {
     for (i = 0; i < divTextEl.length; i++) {
-      console.log(divTextEl[i].parentElement.id);
-        var key = divTextEl[i].parentElement.id;
-        divTextEl[i].textContent = localStorage.getItem(key); 
+      //console.log(divHour[i].textContent);
+      //console.log(divTextEl[i].parentElement.id);
+      var key = divTextEl[i].parentElement.id;
+      divTextEl[i].textContent = localStorage.getItem(key); 
     }
   }
   
