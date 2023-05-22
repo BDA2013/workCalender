@@ -28,7 +28,7 @@ $(function () {
       }
     })
 
-
+setInterval(function(){
   for (i = 0; i < divTimeBlock.length; i++) {
     var hour = parseInt(divTimeBlock[i].id.replace('hour-',''));
     var intCurrentHour = parseInt(currentHour);
@@ -52,8 +52,10 @@ $(function () {
         divTimeBlock[i].classList.replace('past','future');
       }
     };
-  
   }
+  
+})
+  
   function loadScheduler() {
     for (i = 0; i < divTextEl.length; i++) {
       var key = divTextEl[i].parentElement.id;
